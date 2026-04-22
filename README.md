@@ -30,7 +30,7 @@ body{background:#f4f6f8;padding:20px}
 <body>
 <div class="container">
   <div class="logo">
-    <img src="https://raw.githubusercontent.com/evecca7/exam-page/main/logo.png" alt="易慧家科技">
+    <img src="https://picsum.photos/seed/evcca/200/70" alt="易慧家科技">
   </div>
   <div class="header">
     <h1>易慧家科技 - 销售考试</h1>
@@ -168,7 +168,7 @@ body{background:#f4f6f8;padding:20px}
     </div>
   </div>
 
-  <!-- 客户提问题类 -->
+  <!-- 客户常见问题类 -->
   <div class="section">
     <div class="section-title">三、客户常见问题类（共20分）</div>
 
