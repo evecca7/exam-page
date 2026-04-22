@@ -1,121 +1,31 @@
-
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>智能门窗销售考试</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Microsoft YaHei", Arial, sans-serif;
-}
-body {
-  background: #f7f8fa;
-  padding: 20px;
-}
-.container {
-  max-width: 920px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 16px;
-  padding: 40px 32px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-.logo {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.logo img {
-  height: 60px;
-}
-.header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-.header h1 {
-  font-size: 26px;
-  color: #1f2937;
-}
-.header p {
-  color: #6b7280;
-  margin-top: 6px;
-}
-.user-info {
-  background: #f9fafb;
-  padding: 18px 24px;
-  border-radius: 12px;
-  margin-bottom: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-.user-info label {
-  font-size: 16px;
-  font-weight: 500;
-}
-.user-info input {
-  padding: 12px 16px;
-  width: 280px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
-}
-.user-info input:focus {
-  border-color: #2563eb;
-}
-.section {
-  margin-bottom: 36px;
-}
-.section-title {
-  font-size: 18px;
-  color: #1f2937;
-  background: #eff6ff;
-  padding: 12px 18px;
-  border-left: 5px solid #2563eb;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-.question {
-  margin-bottom: 22px;
-}
-.question p {
-  font-size: 15px;
-  color: #1f2937;
-  margin-bottom: 10px;
-}
-.answer {
-  width: 100%;
-  height: 80px;
-  padding: 14px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  font-size: 15px;
-  outline: none;
-}
-.answer:focus {
-  border-color: #2563eb;
-}
-.submit-box {
-  text-align: center;
-  margin-top: 40px;
-}
-#submitBtn {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  padding: 14px 40px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-#submitBtn:hover {
-  background: #1d4ed8;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Microsoft YaHei,Arial,sans-serif}
+body{background:#f7f8fa;padding:20px}
+.container{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.logo{text-align:center;margin-bottom:20px}
+.logo img{height:60px}
+.header{text-align:center;margin-bottom:30px}
+.header h1{font-size:26px;color:#1f2937;margin-bottom:8px}
+.header p{color:#6b7280;font-size:15px}
+.login-box{background:#f9fafb;padding:20px;border-radius:12px;margin-bottom:30px;display:flex;justify-content:center;align-items:center;gap:12px}
+.login-box label{font-size:16px;font-weight:500;color:#374151}
+.login-box input{padding:12px 16px;border:1px solid #d1d5db;border-radius:8px;font-size:15px;width:220px;outline:0}
+.login-box input:focus{border-color:#2563eb}
+.section{margin-bottom:36px}
+.section-title{font-size:18px;background:#eff6ff;padding:12px 18px;border-left:5px solid #2563eb;border-radius:8px;margin-bottom:20px;font-weight:600}
+.question{margin-bottom:22px}
+.question p{font-size:15px;color:#1f2937;margin-bottom:10px;line-height:1.5}
+.answer{width:100%;height:80px;padding:14px 16px;border:1px solid #d1d5db;border-radius:10px;font-size:15px;resize:vertical;outline:0}
+.answer:focus{border-color:#2563eb}
+.submit-box{text-align:center;margin-top:40px}
+#submitBtn{background:#2563eb;color:#fff;border:none;padding:14px 40px;border-radius:10px;font-size:16px;font-weight:500;cursor:pointer}
+#submitBtn:hover{background:#1d4ed8}
 </style>
 </head>
 
@@ -126,10 +36,12 @@ body {
   </div>
   <div class="header">
     <h1>智能门窗销售考试</h1>
-    <p>提交后试卷将自动发送至管理员</p>
+    <p>请填写手机号与姓名，完成后提交自动生成答卷</p>
   </div>
 
-  <div class="user-info">
+  <div class="login-box">
+    <label>手机号：</label>
+    <input type="text" id="phone" placeholder="请输入手机号">
     <label>姓名：</label>
     <input type="text" id="username" placeholder="请输入姓名">
   </div>
@@ -193,47 +105,49 @@ async function getIp() {
     let res = await fetch('https://api.ipify.org?format=json');
     let data = await res.json();
     return data.ip;
-  } catch (e) { return '未知'; }
+  } catch (e) { return '获取失败'; }
 }
 
 function getDevice() {
-  let ua = navigator.userAgent;
-  if (ua.match(/iPhone/)) return 'iPhone';
-  if (ua.match(/Android/)) return 'Android';
-  if (ua.match(/Windows/)) return 'Windows电脑';
-  if (ua.match(/Mac/)) return 'Mac电脑';
-  return '未知设备';
+  const ua = navigator.userAgent;
+  if (ua.match(/iPhone|iPad/)) return '苹果设备：' + ua;
+  if (ua.match(/Android/)) return '安卓设备：' + ua;
+  if (ua.match(/Windows/)) return 'Windows电脑：' + ua;
+  if (ua.match(/Mac/)) return 'Mac电脑：' + ua;
+  return '未知设备：' + ua;
 }
 
 document.getElementById('submitBtn').onclick = async function () {
-  let name = document.getElementById('username').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const name = document.getElementById('username').value.trim();
+  if (!phone) { alert('请填写手机号！'); return; }
   if (!name) { alert('请填写姓名！'); return; }
 
-  let ip = await getIp();
-  let device = getDevice();
-  let content = '姓名：' + name + '\nIP：' + ip + '\n设备：' + device + '\n\n';
+  const ip = await getIp();
+  const device = getDevice();
+  let content = '📄 智能门窗销售考试答卷\n';
+  content += '==============================\n';
+  content += '👤 姓名：' + name + '\n';
+  content += '📞 手机号：' + phone + '\n';
+  content += '🌐 IP地址：' + ip + '\n';
+  content += '📱 设备信息：' + device + '\n';
+  content += '==============================\n\n';
 
-  document.querySelectorAll('.answer').forEach(item => {
-    content += item.getAttribute('data-title') + '：' + (item.value || '未作答') + '\n';
-  });
+  const questions = document.querySelectorAll('.question p');
+  const answers = document.querySelectorAll('.answer');
+  for (let i=0; i<questions.length; i++) {
+    content += questions[i].innerText + '\n';
+    content += '▶ 答案：' + (answers[i].value.trim() || '【未作答】') + '\n\n';
+  }
 
-  // 提交到免费邮件接口 —— 你 100% 能收到
-  await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      service_id: 'service_0nlwve8',
-      template_id: 'template_exam',
-      user_id: 'F1zZJqK0nA8dJZ7x8',
-      template_params: {
-        to_email: '1014520213@qq.com',
-        subject: '【试卷提交】' + name,
-        message: content
-      }
-    })
-  });
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name + '_' + phone + '_考试答卷.txt';
+  a.click();
 
-  alert('提交成功！管理员已收到试卷');
+  alert('提交成功！请将下载的答卷文件发送给管理员');
 };
 </script>
 </body>
